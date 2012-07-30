@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Authors{% endblock %}
+
+{% block body-content %}
+
+<form method="post" action=".">{% csrf_token %}
+	{{ form.as_p }}
+	<br/>
+	<input type="submit" value="Add" />
+</form>
+
+<table border="1">
+	<thead>
+		<th>Name</th>
+		<th>E-mail</th>
+	</thead>
+	<tbody>
+		{% for author in object_list %}
+		<tr>
+			<td>{{ author }}</td>
+			<td>{{ author.email }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

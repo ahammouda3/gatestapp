@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<h3>Django-profiler client example application</h3>
+			
+			<a href="{% url homepage %}">Home</a>
+			
+			&nbsp;&nbsp;&nbsp;
+			|
+			&nbsp;&nbsp;&nbsp;
+			
+			<a href="{% url authors %}">Authors</a>
+			&nbsp;&nbsp;&nbsp;
+			|
+			&nbsp;&nbsp;&nbsp;
+			
+			<a href="{% url books %}">Books</a>
+			&nbsp;&nbsp;&nbsp;
+			|
+			&nbsp;&nbsp;&nbsp;
+			
+			<a href="{% url publishers %}">Publihers</a>
+			
+			<hr/>
+			
+		</div>
+		
+		{% if messages %}
+			<div class="messages">
+			<h3>Messages</h3>
+			<br/>
+				{% for message in messages %}
+					<div class="alert-{{ message.tags }}">
+						<strong>
+						{% if message.tags == "success" %}Success!
+						{% else %}
+							{% if message.tags == "error" %}Aw snap!
+							{% else %}
+								{% if message.tags == "info" %}Heads up!
+								{% endif %}
+							{% endif %}
+						{% endif %}
+						</strong>
+						{{ message }}
+					</div>
+				{% endfor %}
+				<hr/>
+			</div>
+		{% endif %}
+		
+		{% block body-content %}{% endblock %}
+	</body>
+</html>

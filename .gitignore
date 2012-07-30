@@ -1,0 +1,12 @@
+*.pyc
+*.pyo
+venv
+logs
+.svn
+.project
+.pydevproject
+build
+lib
+data.db
+file_cache
+

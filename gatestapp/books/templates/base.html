@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	
+	<body>		
+		{% if messages %}
+			<div class="message-section">
+			<h3>Messages</h3>
+			<br/>
+				{% for message in messages %}
+					<div class="alert-{{ message.tags }}">
+						<strong>
+						{% if message.tags == "success" %}Success!
+						{% else %}
+							{% if message.tags == "error" %}Aw snap!
+							{% else %}
+								{% if message.tags == "info" %}Heads up!
+								{% endif %}
+							{% endif %}
+						{% endif %}
+						</strong>
+						{{ message }}
+					</div>
+				{% endfor %}
+				<hr/>
+			</div>
+		{% endif %}
+		
+		{% block body-content %}{% endblock %}
+	</body>
+</html>
