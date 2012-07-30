@@ -25,9 +25,9 @@ DJP_SEND_ASYNC = True
 
 # credentials for djangoperformance.com demo account.
 # demo account username / password = demo / demo
-DJP_APP_NAME = 'gatestapp'
-DJP_APP_USERNAME = 'demo@djangoperformance.com'
-DJP_API_KEY = '89ea8b5dc16598ec091994d7a53e7abc1d9ead96'
+DJP_APP_NAME = 'testapp'
+DJP_APP_USERNAME = 'testapp'
+DJP_API_KEY = '5c4401cb367b98ebe55ffb8be1d4a1f689e8ba79'
 
 
 
@@ -134,7 +134,7 @@ MIDDLEWARE_CLASSES = (
     
     
     # uncomment this line to profile the entie client application (recommended)
-    'djpclient.middleware.DJPClientMiddleware',
+    'gaclient.middleware.DJPClientMiddleware',
     
     # middleware for site-wide caching
 #    'django.middleware.cache.UpdateCacheMiddleware',
