@@ -1,6 +1,7 @@
 # Django settings for gatestapp project.
 
 import os
+import dj_database_url
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -31,17 +32,8 @@ DJP_API_KEY = '5c4401cb367b98ebe55ffb8be1d4a1f689e8ba79'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'data.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-
+DATABASE_URL = 'mysql://gatestapp:db$testapp1@djp.cbt0lkdu6iin.us-east-1.rds.amazonaws.com/gatestapp'
+DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
 
 # --------------------------------------------------
 # CACHE SETTINGS
@@ -134,7 +126,7 @@ MIDDLEWARE_CLASSES = (
     
     
     # uncomment this line to profile the entie client application (recommended)
-    'gaclient.middleware.DJPClientMiddleware',
+    'gatestapp.gaclient.middleware.DJPClientMiddleware',
     
     # middleware for site-wide caching
 #    'django.middleware.cache.UpdateCacheMiddleware',
@@ -171,7 +163,7 @@ INSTALLED_APPS = (
     'gatestapp.books',
     
     
-    'djpclient',
+    'gatestapp.gaclient',
     
     'kombu.transport.django',
     'djcelery',
