@@ -30,6 +30,11 @@ DJP_APP_NAME = 'testapp'
 DJP_APP_USERNAME = 'testapp'
 DJP_API_KEY = '5c4401cb367b98ebe55ffb8be1d4a1f689e8ba79'
 
+USE_BUNDLED_ENDPOINT = False
+PROFILE_QUERIES = False
+PROFILE_BENCHMARKS = False
+PROFILE_MEMCACHE_STATS = False
+PROFILE_USER_ACTIVITY = False
 
 
 DATABASE_URL = 'mysql://gatestapp:db$testapp1@djp.cbt0lkdu6iin.us-east-1.rds.amazonaws.com/gatestapp'
@@ -126,8 +131,9 @@ MIDDLEWARE_CLASSES = (
     
     
     # uncomment this line to profile the entie client application (recommended)
-#    'gatestapp.gaclient.middleware.DJPClientMiddleware',
+    'gatestapp.gaclient.middleware.DJPClientMiddleware',
     
+#    'gatestapp.gaclient.middleware.TestMiddleware',
     # middleware for site-wide caching
 #    'django.middleware.cache.UpdateCacheMiddleware',
 #    'django.middleware.common.CommonMiddleware',
@@ -148,6 +154,16 @@ TEMPLATE_DIRS = (
     TEMPLATE_PATH,
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -163,8 +179,7 @@ INSTALLED_APPS = (
     'gatestapp.books',
     
     
-#    'gatestapp.gaclient',
-    'gaclient',
+    'gatestapp.gaclient',
     
     'kombu.transport.django',
     'djcelery',

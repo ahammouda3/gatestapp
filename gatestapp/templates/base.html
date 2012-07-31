@@ -1,6 +1,10 @@
+{% load gaclient_tags %}
+
 <html>
 	<head>
 		<title>{% block title %}{% endblock %}</title>
+		
+		{% djp_ga_js_script %}
 	</head>
 	
 	<body>
