@@ -163,7 +163,8 @@ INSTALLED_APPS = (
     'gatestapp.books',
     
     
-    'gatestapp.gaclient',
+#    'gatestapp.gaclient',
+    'gaclient',
     
     'kombu.transport.django',
     'djcelery',
