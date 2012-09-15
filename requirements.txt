@@ -18,6 +18,8 @@ gunicorn==0.13.4
 httplib2==0.7.4
 kombu==2.3.2
 
+#Might've jumped the gun on install, but would like to play around with this to generate
+#lots of ga test data
 mechanize==0.2.5
 mimeparse==0.1.3
 multi-mechanize==1.2.0

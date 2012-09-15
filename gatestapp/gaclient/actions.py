@@ -53,7 +53,8 @@ def TransmitQueries(request, kwargs, queries, sender=None, name=''):
         tasks.SendQueriesTask.delay(CleanKwargs(kwargs), requestargs, queries, name, is_view)
     else:
         send.SendQueries(CleanKwargs(kwargs), requestargs, queries, name, is_view,
-                         expire_time=request.get_expiry_date() ) 
+                         ga_exp_time=request.session.get_expiry_date(),
+                         ga_cookie=request.session['ga-report-id']) 
                          
 
 
@@ -74,7 +75,8 @@ def TransmitBenchmark(request, kwargs, exectime, cputime, sender=None, name=''):
         tasks.SendBenchmarkTask.delay(CleanKwargs(kwargs), requestargs, exectime, cputime, name, is_view)
     else:
         send.SendBenchmark(CleanKwargs(kwargs), requestargs, exectime, cputime, name, is_view,
-                           expire_time=request.get_expiry_date() ) )
+                           ga_exp_time=request.session.get_expiry_date(),
+                           ga_cookie=request.session['ga-report-id'] )  
 
 
 
@@ -101,7 +103,8 @@ def TransmitMemcacheStats(request, kwargs, stats, sender=None, name=''):
             tasks.SendMemcacheStat.delay(CleanKwargs(kwargs), requestargs, stat, name, is_view)
         else:
             send.SendMemcacheStat(CleanKwargs(kwargs), requestargs, stat, name, is_view,
-            expire_time=request.get_expiry_date() ) )
+                                  ga_exp_time=request.session.get_expiry_date(),
+                                  ga_cookie=request.session['ga-report-id'])
 
 
 def TransmitUserActivity(request, kwargs, sender=None, name=''):
@@ -127,7 +130,8 @@ def TransmitUserActivity(request, kwargs, sender=None, name=''):
         tasks.SendUserActivity(CleanKwargs(kwargs), requestargs, is_anonymous, username, userid, useremail, name, is_view)
     else:
         send.SendUserActivity(CleanKwargs(kwargs), requestargs, is_anonymous, username, userid, useremail, name, is_view,
-                              expire_time=request.get_expiry_date() ) )
+                              ga_exp_time=request.session.get_expiry_date(),
+                              ga_cookie=request.session['ga-report-id'])
 
 
 def TransmitBundledData(request, kwargs, querydata, exectime, cputime, stat, sender):
@@ -149,6 +153,7 @@ def TransmitBundledData(request, kwargs, querydata, exectime, cputime, stat, sen
         tasks.SendBundle.delay(CleanKwargs(kwargs), requestargs, querydata, exectime, cputime, stat, is_anonymous, username, userid, useremail, name)
     else:
         send.SendBundle(CleanKwargs(kwargs), requestargs, querydata, exectime, cputime, stat, is_anonymous, username, userid, useremail, name,
-                        expire_time=request.get_expiry_date() ) )
+                        ga_exp_time=request.session.get_expiry_date(),
+                        ga_cookie=request.session['ga-report-id'])
 
 
