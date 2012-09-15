@@ -21,8 +21,8 @@ def SendQueries(kwargs, requestargs, queries, name, is_view):
                   'sql': query['sql'],
                   'execution_time': query['time'],
                   
-                  'ga_id':requestargs['ga-report-id'],
-                  'ga_expiration_time':kwargs['exipire_time'],
+                  'ga_id':requestargs[''],
+                  'ga_expiration_time':requestargs[''],
                   }
         print 'sending query to %s' % appsettings.QUERY_ENDPOINT
         

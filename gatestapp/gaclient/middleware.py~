@@ -61,20 +61,19 @@ class DJPClientMiddleware(object):
         cput2 = time.clock()
         cputime = cput2 - cput1
         
-        
+        "*******************************************************************"
+        "Create Reporting Id to be injected into ga.js in process_response,
+        and save it as a session variable on a day by day basis"
         if not request.session['ga-report-id']:
             '''
-            Create Reporting Id to be injected into ga.js in process_response,
-            and save it as a session variable on a day by day basis.
-            
             The session data now gets passed to transmit functions
             through the request object.
             '''
             new_user = User.objects.create()
             request.session['ga-report-id'] = new_user.analytics_id
             request.session.set_expiry(new_user.expiration_time)
-        
-        
+            
+                
         if appsettings.BUNDLE_DATA:
             actions.TransmitBundledData(request, kwargs,
                                         simplejson.dumps(connection.queries),

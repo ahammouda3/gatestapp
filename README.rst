@@ -1,0 +1,1 @@
+NB:  Asyncronous sending of ga-data has not been enabeled
