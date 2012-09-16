@@ -28,7 +28,7 @@ DJP_SEND_ASYNC = False
 # demo account username / password = demo / demo
 DJP_APP_NAME = 'testapp'
 DJP_APP_USERNAME = 'testapp'
-DJP_API_KEY = '5c4401cb367b98ebe55ffb8be1d4a1f689e8ba79'
+DJP_API_KEY = '27f8ac3fbbecd5ea682a970202166efef2e0a561'
 
 USE_BUNDLED_ENDPOINT = False
 PROFILE_QUERIES = False
@@ -193,6 +193,7 @@ INSTALLED_APPS = (
     
     'gatestapp.gaclient',
     
+    'south',
     'kombu.transport.django',
     'djcelery',
 )

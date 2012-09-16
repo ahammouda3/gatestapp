@@ -7,7 +7,7 @@ from datetime import datetime
 
 import pdb
 
-def SendQueries(kwargs, requestargs, queries, name, is_view, ga_cookie, ga_exp_time):
+def SendQueries(kwargs, requestargs, queries, name, ga_cookie, ga_exp_time, is_view):
     for query in queries:
         values = {'kwargs': kwargs,
                   'requestargs': requestargs,
@@ -21,8 +21,8 @@ def SendQueries(kwargs, requestargs, queries, name, is_view, ga_cookie, ga_exp_t
                   'sql': query['sql'],
                   'execution_time': query['time'],
 
-                  'ga_id':ga_cookie,
-                  'ga_expiration_time':ga_exp_time,
+                  'ga_id': ga_cookie,
+                  'ga_expiration_time': ga_exp_time,
                   }
         print 'sending query to %s' % appsettings.QUERY_ENDPOINT
         
@@ -32,7 +32,7 @@ def SendQueries(kwargs, requestargs, queries, name, is_view, ga_cookie, ga_exp_t
         print 'query endpoint response: ', resp
 
 
-def SendBenchmark(kwargs, requestargs, exectime, cputime, viewname, is_view=True, ga_cookie, ga_exp_time):
+def SendBenchmark(kwargs, requestargs, exectime, cputime, viewname, ga_cookie, ga_exp_time, is_view=True):
     values = {'kwargs': kwargs,
               'requestargs': requestargs,
               
@@ -42,10 +42,10 @@ def SendBenchmark(kwargs, requestargs, exectime, cputime, viewname, is_view=True
               'is_view': is_view,
               'submission_timestamp': str(datetime.now()),
               'execution_time': exectime,
-              'cpu_time': cputime
+              'cpu_time': cputime,
               
-              'ga_id':ga_cookie,
-              'ga_expiration_time':ga_exp_time,
+              'ga_id': ga_cookie,
+              'ga_expiration_time': ga_exp_time,
               }
     resp = requests.post(appsettings.BENCHMARK_ENDPOINT,
                          data=simplejson.dumps(values),
@@ -74,8 +74,8 @@ def SendMemcacheStat(kwargs, requestargs, statobj, name, is_view, ga_cookie, ga_
               'get_commands': statobj.cmd_get,
               'set_commands': statobj.cmd_set,
 
-              'ga_id':ga_cookie,
-              'ga_expiration_time':ga_exp_time,
+              'ga_id': ga_cookie,
+              'ga_expiration_time': ga_exp_time,
               }
     
     resp = requests.post(appsettings.MEMCACHESTAT_ENDPOINT,
@@ -100,8 +100,8 @@ def SendUserActivity(kwargs, requestargs, is_anonymous, username, userid, userem
               'websiteusername': username,
               'websiteuseremail': useremail,
               
-              'ga_id':ga_cookie,
-              'ga_expiration_time':ga_exp_time,
+              'ga_id': ga_cookie,
+              'ga_expiration_time': ga_exp_time,
               }
     
     resp = requests.post(appsettings.USER_ACTIVITY_ENDPOINT,
@@ -117,7 +117,7 @@ def SendUserConversion(kwargs, requestargs, is_anonymous, username, userid, user
 
 
 def SendBundle(kwargs, requestargs, querydata, exectime, cputime, statobj, is_anonymous, 
-               username, userid, useremail, name, is_view=True, ga_cookie, ga_exp_time):
+               username, userid, useremail, name, ga_cookie, ga_exp_time, is_view=True):
     values = {'kwargs': kwargs,
               'requestargs': requestargs,
               'appusername': appsettings.APP_USERNAME,
@@ -146,8 +146,8 @@ def SendBundle(kwargs, requestargs, querydata, exectime, cputime, statobj, is_an
               'websiteusername': username,
               'websiteuseremail': useremail,
               
-              'ga_id':ga_cookie,
-              'ga_expiration_time':ga_exp_time,
+              'ga_id': ga_cookie,
+              'ga_expiration_time': ga_exp_time,
               }
     
     resp = requests.post(appsettings.BUNDLED_DATA_ENDPOINT,

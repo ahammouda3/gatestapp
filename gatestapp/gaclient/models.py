@@ -12,7 +12,5 @@ class User(models.Model):
     analytics_id = models.AutoField(primary_key=True)
     creation_time = models.DateTimeField(null=False, default=datetime.now())
     "make it a time delta to prevent end of month failure"
-    expiration_time = models.DateTimeField(null=False, 
-                                           default=(
-            datetime(datetime.now().year, datetime.now().month, datetime.now().day +1, 0)-datetime.now() )
-                                           )
+    "This field is the result of calling total_seconds() on a timedelta"
+    expiration_time = models.DecimalField(null=False, max_digits=20, decimal_places=10)

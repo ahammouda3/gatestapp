@@ -13,9 +13,12 @@ import stopwatch, time
 import logging
 logger = logging.getLogger(__name__)
 
-import pdb
+import pdb, datetime
 
 from django.core.cache import cache
+
+"For interacting with sessions outside of views"
+from django.contrib.sessions.backends.db import SessionStore
 
 class DJPClientMiddleware(object):
     def __init__(self):
@@ -62,7 +65,7 @@ class DJPClientMiddleware(object):
         cputime = cput2 - cput1
         
         
-        if not request.session['ga-report-id']:
+        if not request.session.get('ga-report-id'):
             '''
             Create Reporting Id to be injected into ga.js in process_response,
             and save it as a session variable on a day by day basis.
@@ -70,10 +73,13 @@ class DJPClientMiddleware(object):
             The session data now gets passed to transmit functions
             through the request object.
             '''
-            new_user = User.objects.create()
-            request.session['ga-report-id'] = new_user.analytics_id
-            request.session.set_expiry(new_user.expiration_time)
-        
+            now=datetime.datetime.now()
+            lifetime=( datetime.datetime(now.year, now.month, now.day +1, 0) - now ).total_seconds()
+            new_user = User(creation_time=now,expiration_time=lifetime )
+            new_user.save()
+            
+            request.session.__setitem__('ga-report-id', new_user.analytics_id)
+            request.session.set_expiry( lifetime )
         
         if appsettings.BUNDLE_DATA:
             actions.TransmitBundledData(request, kwargs,
@@ -120,7 +126,7 @@ class DJPClientMiddleware(object):
         if index < 0:
             return response
         newcontent = content.replace(appsettings.GA_JS_PLACEHOLDER, 
-                                     self.tracking_script_template %(appsettions.GA_PROFILE_ID, request.session['ga-report-id'] )
+                                     self.tracking_script_template %(appsettings.GA_PROFILE_ID, request.session['ga-report-id'] )
                                      )
         return HttpResponse(newcontent)
 

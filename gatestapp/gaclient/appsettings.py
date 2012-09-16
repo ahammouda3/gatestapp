@@ -4,7 +4,9 @@ WARNING:
     nothing in this module should be changed; instead interact with settings.py
     and refer to the documentation at: http://djangoperformance.com/docs/
 """
-DEBUG = False
+
+from gatestapp import settings
+DEBUG = settings.DEBUG
 
 from django.conf import settings
 
@@ -47,5 +49,5 @@ BUNDLED_DATA_ENDPOINT = '%s/api/%s/clientappdata/?%s' % (BASE_URL, API_VERSION, 
 #----------------------------------
 GA_JS_PLACEHOLDER = '<!-- ga_js_placeholder -->'
 GA_PROFILE_ID = 'UA-33670488-1'
-SESSION_COOKIE_DOMAIN = ".adamgh.com"
+SESSION_COOKIE_DOMAIN = "http://localhost:7000"
 
